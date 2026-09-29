@@ -6,7 +6,7 @@ A collection of [Agent Skills](https://agentskills.io/) for spec-driven developm
 
 | Skill | What it does |
 | --- | --- |
-| `sdd-bootstrap` | Run `/sdd-bootstrap` once at project start. It interviews you in structured rounds (product, stack, architecture shape, security, error handling, testing, deployment), then batch generates the whole spec-driven development context bundle plus numbered feature specs. Safe to resume in a new chat. |
+| `sdd-selcy` | Run `/sdd-selcy` once at project start. It interviews you in structured rounds (product, stack, architecture shape, security, error handling, testing, deployment), then batch generates the whole spec-driven development context bundle plus numbered feature specs. Safe to resume in a new chat. |
 
 ## Install
 
@@ -41,7 +41,7 @@ npx skills@latest add maulanaadib/skills-selcy --list
 
 ## How to use it
 
-Run `/sdd-bootstrap` once at the start of a project. It asks everything up front in batched decision panels, then writes the whole context bundle in one pass:
+Run `/sdd-selcy` once at the start of a project. It asks everything up front in batched decision panels, then writes the whole context bundle in one pass:
 
 ```
 context/

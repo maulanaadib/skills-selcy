@@ -1,7 +1,7 @@
 ---
-name: sdd-bootstrap
+name: sdd-selcy
 allowed-tools: Bash, Read, Grep, Glob, Write, Edit, Agent, AskUserQuestion
-description: "Run /sdd-bootstrap once at project start. Interviews you in structured rounds (combining /scope product questions with /architect technical questions), then batch generates the full SDD context bundle plus numbered feature specs. Safe to resume in a new chat. Each feature spec is then built with /develop in its own chat."
+description: "Run /sdd-selcy once at project start. Interviews you in structured rounds (combining /scope product questions with /architect technical questions), then batch generates the full SDD context bundle plus numbered feature specs. Safe to resume in a new chat. Each feature spec is then built with /develop in its own chat."
 ---
 
 ## What this skill does
@@ -62,7 +62,7 @@ Never overwrite an existing `context/` file without asking. If the bundle alread
 
 Every answer, every decomposed feature, and every per feature decision lives in `context/.sdd-state.md`. This is what makes new chat resumption possible: the skill is stateless between chats, the file is the memory.
 
-- Written after every interview round, not only at the end. If a chat dies mid interview, the next `/sdd-bootstrap` picks up at the last answered round.
+- Written after every interview round, not only at the end. If a chat dies mid interview, the next `/sdd-selcy` picks up at the last answered round.
 - Format and field meanings are in `state-format.md`. Read that file before reading or writing state.
 - It is internal: dot prefixed, and `AGENTS.md` never points later chats at it. Builders read the generated context files, not the state.
 
