@@ -1,14 +1,14 @@
 ---
 name: sdd-selcy
 allowed-tools: Bash, Read, Grep, Glob, Write, Edit, Agent, AskUserQuestion
-description: "Run /sdd-selcy once at project start. Interviews you in structured rounds (combining /scope product questions with /architect technical questions), then batch generates the full SDD context bundle plus numbered feature specs. Safe to resume in a new chat. Each feature spec is then built with /develop in its own chat."
+description: "Run /sdd-selcy once at project start. Interviews you in structured rounds (combining /scope product questions with /architect technical questions), then batch generates the full SDD context bundle plus numbered feature specs. Safe to resume in a new chat. Each feature spec is then built with /selcy in its own chat."
 ---
 
 ## What this skill does
 
 The one-shot SDD generator. It does the slow, careful part once: it interviews you across every dimension `/scope` and `/architect` would cover, in batched decision panels, until nothing load bearing is left open. Then it writes the whole spec driven development context bundle in one pass, in the exact shape your project already uses, plus one numbered feature spec per feature.
 
-After it runs, you never need it again for this project. You build each feature in its own new chat with `/develop`, pointing at one feature spec file. No chat memory is needed at any point: all state lives in files.
+After it runs, you never need it again for this project. You build each feature in its own new chat with `/selcy`, pointing at one feature spec file. No chat memory is needed at any point: all state lives in files.
 
 It exists because `/scope` and `/architect` are deliberately one decision at a time. That is correct for a living project, but expensive at project start, when you want the whole context bundle written once and then forgotten about. This skill front loads the interview, then batch writes.
 
@@ -16,7 +16,7 @@ It exists because `/scope` and `/architect` are deliberately one decision at a t
 
 This is the workflow the generated files are shaped for. Read it as the contract the output must serve:
 
-1. New chat. Run `/develop <feature>` (or just ask: read `context/feature-specs/NN-name.md` and build it).
+1. New chat. Run `/selcy <feature>` (or just ask: read `context/feature-specs/NN-name.md` and build it).
 2. The builder reads `context/AGENTS.md`, which sends it to the context files in order, then the one feature spec.
 3. It builds. Nothing else in the bundle is in scope for that chat.
 4. It updates `context/progress-tracker.md` (completed, in progress, next up, open questions, session notes).
@@ -155,6 +155,6 @@ Report, in plain language:
 - What was written (file list, counts).
 - Which features needed extra questions versus which were resolved from the interview (so you know where the skill decided for you, and can object).
 - Any decision it flagged as weakly supported (an answer inferred rather than asked).
-- The exact next step: open a new chat, run `/develop 00-project-setup` (it scaffolds the project, cleans the boilerplate, sets up the GitHub repo when one was given, and performs the first deploy when Stage 5c asked for it), then continue with feature 01.
+- The exact next step: open a new chat, run `/selcy 00-project-setup` (it scaffolds the project, cleans the boilerplate, sets up the GitHub repo when one was given, and performs the first deploy when Stage 5c asked for it), then continue with feature 01.
 
 Keep it short. The report is a handoff, not a summary of the project.

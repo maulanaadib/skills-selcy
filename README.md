@@ -2,11 +2,27 @@
 
 A collection of [Agent Skills](https://agentskills.io/) for spec-driven development, built for any AI coding agent.
 
-## The skill
+## The skills
+
+One skill per phase. Run only the ones a change needs.
 
 | Skill | What it does |
 | --- | --- |
 | `sdd-selcy` | Run `/sdd-selcy` once at project start. It interviews you in structured rounds (product, stack, architecture shape, security, error handling, testing, deployment), then batch generates the whole spec-driven development context bundle plus numbered feature specs. Safe to resume in a new chat. |
+| `selcy` | Run `/selcy` to build one feature spec into working code. It reads the context bundle, gates on input coverage so nothing load bearing is invented mid build, builds, runs the spec's Check When Done, updates progress-tracker.md, and commits. One feature per chat. |
+| `selcy-check` | Run `/selcy-check` before closing a feature. `verify` runs the real app and proves the feature behaves per its spec; `review` reads the diff on a fresh model and ranks findings. Read only, never edits code. |
+| `selcy-test` | Run `/selcy-test` after `/selcy` builds a feature. Scopes from git uncommitted changes, reads the testing standards to know what must be covered first, and picks the right strategy per file. Saves the framework choice so it never asks twice. |
+| `selcy-debug` | Run `/selcy-debug` when something is broken. Reproduces the bug on demand, narrows it to the smallest failing surface, fixes the root cause with the smallest change, and hands a regression test to `/selcy-test`. |
+| `selcy-sync` | Run `/selcy-sync` after you edit a context file by hand, or after a feature lands. Reconciles progress-tracker.md against the repo, detects a context file that drifted from the feature specs, and flags specs the change made stale. |
+
+The pipeline:
+
+```
+/sdd-selcy  →  /selcy  →  /selcy-check  →  /selcy-test  →  /selcy-sync
+   once         per feature    before close     after build     after edit
+```
+
+Run `/selcy-debug` anytime something breaks.
 
 ## Install
 
@@ -63,7 +79,7 @@ context/
     NN-name.md               # one per feature
 ```
 
-Then build each feature in its own new chat: name the feature spec file, the builder reads `context/AGENTS.md` and the context files, builds that one feature, updates `progress-tracker.md`, and commits.
+Then build each feature in its own new chat with `/selcy`: it reads `context/AGENTS.md` and the context files, gates on input coverage, builds that one feature, runs its Check When Done, updates `progress-tracker.md`, and commits. Close the chat, open a new one, run `/selcy` again for the next feature.
 
 The interview covers every dimension that a builder would otherwise invent: product framing, capabilities, go-to-market, stack, architecture shape, security, error handling, testing, UI direction, code standards, repository, deployment and CI, build approach, and feature decomposition. Each answer is saved to a resume state file, so a chat that dies mid-interview picks up at the last answered panel.
 
